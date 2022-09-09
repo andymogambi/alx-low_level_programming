@@ -1,6 +1,7 @@
 #include <stdio.h>
+#include <unistd.h>
 /**
- * main - Prints a text
+ * main - Prints quote
  * Description: using the main function
  * this program prints the results of the function
  * Return: 1
