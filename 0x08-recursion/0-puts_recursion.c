@@ -1,37 +1,29 @@
+#include "main.h"
 /**
- * file 0-puts_recursion.c
- * Auth Andy
+ * _puts_recursion -> this is a function to print string recursivly
+ *
+ * @s: string paramenter
+ *
  */
 
-#include "main.h"                                                                                                                       
-                                                                                                                                       
-/**                                                                                                                                     
- * _puts_recursion - Prints a string, followed by a new line.                                                                           
- *
- * @s: The string to be printed.                                                                                                        
- *
- */                                                                                                                                     
+void _puts_recursion(char *s)
 
-void _puts_recursion(char *s)                                                                                                           
+{
 
-{                                                                                                                                       
+		if (*s == '\0')
 
-	        if (*s)                                                                                                                         
+				{
 
-			        {                                                                                                                               
+							_putchar('\n');
 
-					                _putchar(*s);                                                                                                           
+									return;
 
-							                _puts_recursion(s + 1);                                                                                                 
+										}
 
-									        }                                                                                                                               
+			_putchar(*s);
 
-		                                                                                                                                        
+				s++;
 
-		        else                                                                                                                            
-
-				                _putchar('\n');                                                                                                         
+					_puts_recursion(s);
 
 }
-
-

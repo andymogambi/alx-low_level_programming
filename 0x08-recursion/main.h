@@ -1,37 +1,21 @@
-#ifndef MAIN_H                                                                                                                          
-#define MAIN_H                                                                                                                          
-                                                                                                                                        
-/**                                                                                                                                     
- * File: main.h                                                                                                                         
- *
- * Auth: me                                                                                                                             
- *
- * Desc: Header file containing prototypes for all functions                                                                            
- *
- *       used in the 0x07-recursion directory.                                                                                          
- *
- */                                                                                                                                     
-                                                                                                                                       
-int _putchar(char c);                                                                                                                   
+#ifndef MAIN_H
 
-void _puts_recursion(char *s);                                                                                                          
+#define MAIN_H
 
-void _print_rev_recursion(char *s);                                                                                                     
+int _putchar(char c);
 
-int _strlen_recursion(char *s);                                                                                                         
+void _puts_recursion(char *s);
 
-int factorial(int n);                                                                                                                   
+void _print_rev_recursion(char *s);
 
-int _pow_recursion(int x, int y);                                                                                                       
+int _strlen_recursion(char *s);
 
-int _sqrt_recursion(int n);                                                                                                             
+int factorial(int n);
 
-int is_prime_number(int n);                                                                                                             
+int _pow_recursion(int x, int y);
 
-int is_palindrome(char *s);                                                                                                             
+int is_prime_number(int n);
 
-int wildcmp(char *s1, char *s2);                                                                                                        
-                                                                                                                                       
-#endif /main.h/
+int wildcmp(char *s1, char *s2);
 
-
+#endif
