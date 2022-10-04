@@ -1,49 +1,77 @@
 #include "main.h"
 /**
- * _strdup -> string duplicator function
+ * str_concat -> string concatinating function
  *
- * @str: string to be dupliated
+ * @s1: string 1
  *
- *Return: a string pointer
+ * @s2: string 2
+ *
+ * Return: string 1 + string 2
  *
  */
 
-char *_strdup(char *str)
+char *str_concat(char *s1, char *s2)
 
 {
 
-		int i = 1, j = 0;
+		int i = 0, j = 0, l = 0, k = 0;
 
 			char *s;
 
 
 
-				if (str == NULL)
+				if (s1 == NULL)
 
-							return (NULL);
+							s1 = "";
 
-					while (str[i])
+					if (s2 == NULL)
 
-								i++;
+								s2 = "";
 
-						s = (char *)malloc(i * sizeof(char) + 1);
+						while (s1[i])
 
-							if (s == NULL)
+									i++;
 
-										return (NULL);
+							while (s2[j])
 
-								while (j < i)
+										j++;
 
-										{
 
-													s[j] = str[j];
 
-															j++;
+								l = i + j;
 
-																}
+									s = (char *)malloc(l * sizeof(char) + 1);
 
-									s[j] = '\0';
+										if (s == NULL)
 
-										return (s);
+													return (NULL);
+
+											j = 0;
+
+												while (k < l)
+
+														{
+
+																	if (k < i)
+
+																					s[k] = s1[k];
+
+																			if (k >= i)
+
+																						{
+
+																										s[k] = s2[j];
+
+																													j++;
+
+																															}
+
+																					k++;
+
+																						}
+
+													s[k] = '\0';
+
+														return (s);
 
 }
