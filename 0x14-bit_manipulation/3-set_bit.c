@@ -1,5 +1,3 @@
-es (14 sloc)  370 Bytes
-
 #include "main.h"
 /**
  * set_bit - Sets the value of a bit at a given index to 1.
