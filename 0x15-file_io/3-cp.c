@@ -1,52 +1,65 @@
 #include "main.h"
-
 /**
- * main - copies the content of a file to another file
- * @argc: number of arguments passed to the program
- * @argv: array of arguments
- *
- * Return: Always 0 (Success)
+ * cpfile - appends text to a file
+ * @src: source file
+ * @dest: destination file
+ * Return: 1 on success or exit codes 97-100 if it fails
  */
-int main(int argc, char *argv[])
+int cpfile(char *src, char *dest)
 {
-	int fd_r, fd_w, r, a, b;
-	char buf[BUFSIZ];
+	int fd1, fd2, nread;
+	char buffer[BUFSIZ];
 
-	if (argc != 3)
+	fd1 = open(src, O_RDONLY);
+	if (fd1 < 0)
+	{
+		dprintf(STDERR_FILENO,
+			"Error: Can't read from file %s\n", src);
+		exit(98);
+	}
+	fd2 = open(dest, O_WRONLY | O_TRUNC | O_CREAT, 0664);
+	while ((nread = read(fd1, buffer, BUFSIZ)) > 0)
+	{
+		if (fd2 < 0 || write(fd2, buffer, nread) != nread)
+		{
+			dprintf(STDERR_FILENO,
+				"Error: Can't write to %s\n", dest);
+			close(fd1);
+			exit(99);
+		}
+	}
+	if (nread < 0)
+	{
+		dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", src);
+		exit(98);
+	}
+	fd1 = close(fd1);
+	fd2 = close(fd2);
+	if (fd1 < 0 || fd2 < 0)
+	{
+		if (fd1 < 0)
+			dprintf(STDERR_FILENO,
+			"Error: Can't close fd %d\n", fd1);
+		if (fd2 < 0)
+			dprintf(STDERR_FILENO,
+			"Error: Can't close fd %d\n", fd2);
+		exit(100);
+	}
+	return (0);
+}
+/**
+ * main - program that copies the content of a file to another file
+ * @ac: argument counter
+ * @av: arguments passed to the command line
+ * Return: 0 on success or exit 97 if it fails
+ */
+int main(int ac, char **av)
+{
+	if (ac != 3)
 	{
 		dprintf(STDERR_FILENO, "Usage: cp file_from file_to\n");
 		exit(97);
 	}
-	fd_r = open(argv[1], O_RDONLY);
-	if (fd_r < 0)
-	{
-		dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", argv[1]);
-		exit(98);
-	}
-	fd_w = open(argv[2], O_CREAT | O_WRONLY | O_TRUNC, 0664);
-	while ((r = read(fd_r, buf, BUFSIZ)) > 0)
-	{
-		if (fd_w < 0 || write(fd_w, buf, r) != r)
-		{
-			dprintf(STDERR_FILENO, "Error: Can't write to %s\n", argv[2]);
-			close(fd_r);
-			exit(99);
-		}
-	}
-	if (r < 0)
-	{
-		dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", argv[1]);
-		exit(98);
-	}
-	a = close(fd_r);
-	b = close(fd_w);
-	if (a < 0 || b < 0)
-	{
-		if (a < 0)
-			dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", fd_r);
-		if (b < 0)
-			dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", fd_w);
-		exit(100);
-	}
+	cpfile(av[1], av[2]);
 	return (0);
 }
